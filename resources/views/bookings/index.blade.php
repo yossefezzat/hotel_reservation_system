@@ -46,10 +46,16 @@ Add New Booking</a>
                         title="Edit">
                       Edit
                     </a>
+                    <form action= " {{action('BookingController@destroy' , ['booking' => $booking->id ])}} " method = "POST">
+                        {{method_field('DELETE')}}
+                        {{ csrf_field() }}
+                        <button type ="submit" class = "btn btn-link" type="submit" title="Delete" value="DELETE">Delete</button>
+                    </form>
                 </td>
             </tr>
         @empty
         @endforelse
     </tbody>
 </table>
+    {{ $bookings->links() }}
 @endsection
