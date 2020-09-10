@@ -9,11 +9,7 @@ use Illuminate\support\facades\DB;
 class ShowRoomsController extends Controller
 {
     public function showRooms(Request $request , $roomType = null ){
-        if( isset($roomType)){
-            $rooms = Room::where('room_type_id' , $roomType)->paginate(4);
-        } else {
-            $rooms = Room::paginate(5);
-        }
+        $rooms = Room::byType($roomType)->get(); 
         return view('rooms.index' , ['rooms' => $rooms]);
     }
 }

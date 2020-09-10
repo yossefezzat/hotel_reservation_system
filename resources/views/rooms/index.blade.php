@@ -16,10 +16,9 @@
         @foreach($rooms as $room)
             <tr>
                 <td> {{$room->number}}</td>
-                <td> {{$room->room_type_id}} </td>
+                <td> {{$room->roomtype->name}} </td>
             </tr>
         @endforeach
     </tbody>
-</table>
-    {{$rooms->links()}}
+</table>  
 @endsection

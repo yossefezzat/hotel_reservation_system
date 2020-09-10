@@ -26,4 +26,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function bookings(){
+        return $this->belongsToMany('App\Booking', 'bookings_users' , 'user_id' , 'booking_id')->withTimestamps();
+    }
+
+
 }
