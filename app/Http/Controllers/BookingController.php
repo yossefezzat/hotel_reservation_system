@@ -88,6 +88,15 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
+        $this->validate($request , [
+            'start' => 'required|date',
+            'end' => 'required|date',
+            'user_id' => 'required| exists:users,id',
+            'room_id' => 'required| exists:rooms,id',
+            'is_paid' => 'nullable',
+            'notes' => 'present',
+            'is_reservation' => 'required',
+        ]);
         $booking->fill($request->input());
         $booking->save();
         $booking->users()->sync([$request->input('user_id')]);

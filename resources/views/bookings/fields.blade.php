@@ -1,3 +1,9 @@
+@if($errors->any())
+    @foreach($errors->all() as $error)
+        <p class= "alert alert-danger"> {{$error}} </p>
+    @endforeach
+@endif
+
 <div class="form-group row">
         <label class="col-sm-2 col-form-label"for="room_id">Room</label>
         <div class="col-sm-10">
@@ -21,6 +27,9 @@
                 @endforeach
             </select>
             <small class="form-text text-muted">The user booking the room.</small>
+            @if($errors->has('user_id'))
+                <p class= "alert alert-danger"> {{$errors->first('user_id')}} </p>
+            @endif
         </div>
     </div>
 

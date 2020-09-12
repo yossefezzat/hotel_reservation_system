@@ -23,5 +23,7 @@ Route::get('/rooms/{roomType?}' , 'ShowRoomsController@showRooms')->name('rooms'
 
 Route::resource('/bookings' , 'BookingController');
 
+Route::resource('/room_types' , 'RoomTypeController');
+
 
 

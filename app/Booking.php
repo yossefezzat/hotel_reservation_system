@@ -21,6 +21,6 @@ class Booking extends Model
     }
 
     public function users(){
-        return $this->belongsToMany('App\User' , 'bookings_users' , 'booking_id' , 'user_id')->withTimestamp();
+        return $this->belongsToMany('App\User' , 'bookings_users' , 'booking_id' , 'user_id');
     }
 }
