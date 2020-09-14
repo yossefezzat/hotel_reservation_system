@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Libraries\Notifications;
 
 class EmailReservationsCommand extends Command
 {
@@ -27,8 +28,9 @@ class EmailReservationsCommand extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Notifications $notify)
     {
+        $this->notify = $notify;
         parent::__construct();
     }
 
@@ -54,7 +56,7 @@ class EmailReservationsCommand extends Command
             if($this->option('dry-run')){
                 $this->info('   Would process booking');
             } else {
-                $this->error('  Nothing happened');
+                $this->notify->send();
             }
             $bar->advance();
         }
