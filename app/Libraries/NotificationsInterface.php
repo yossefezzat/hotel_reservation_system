@@ -3,5 +3,5 @@ namespace App\Libraries;
 
 interface NotificationsInterface
 {
-    public function send();
+	public function send();
 }

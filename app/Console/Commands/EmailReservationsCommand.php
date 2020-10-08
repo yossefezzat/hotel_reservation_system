@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Libraries\Notifications;
+use App\Notifications\Reservation;
 
 class EmailReservationsCommand extends Command
 {
@@ -41,26 +42,36 @@ class EmailReservationsCommand extends Command
      */
     public function handle()
     {
-        $answer = $this->choice('what service should we use' , ['email' , 'sms'] , 'email');
+        $answer = $this->choice(
+            'What service should we use?',
+            ['sms', 'email'],
+            'email'
+        );
         var_dump($answer);
         $count = $this->argument('count');
-        if(!is_numeric($count)){
-            $this->alert('The count must be a Number');
+        if (!is_numeric($count)) {
+            $this->alert('The count must be a number');
             return 1;
         }
-        $bookings = \App\Booking::with(['room.roomType' , 'users'])->limit($count)->get();
-        $this->info(sprintf('the number of bookings is: %d', $bookings->count()));
+        $bookings = \App\Booking::with(['room.roomType', 'users'])->limit($count)->get();
+        $this->info(sprintf('The number of bookings to alert for is: %d', $bookings->count()));
         $bar = $this->output->createProgressBar($bookings->count());
         $bar->start();
-        foreach($bookings as $booking){
-            if($this->option('dry-run')){
-                $this->info('   Would process booking');
-            } else {
-                $this->notify->send();
-            }
+        foreach ($bookings as $booking ){
+            $this->processBooking($booking);
             $bar->advance();
         }
         $bar->finish();
-        $this->comment('       Command Completed !          ');
+        $this->comment('Command completed!');
+    }
+
+    public function processBooking($booking)
+    {
+        if ($this->option('dry-run')) {
+            $this->info('Would process booking');
+        } else {
+            //$booking->notify(new Reservation('youssef Ezzat'));
+            Notifications::send();
+        }
     }
 }

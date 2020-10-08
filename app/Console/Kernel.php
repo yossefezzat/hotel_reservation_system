@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\EmailReservationsCommand::class,
     ];
-
+    
     /**
      * Define the application's command schedule.
      *
@@ -24,16 +24,23 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('inspire')
+                 ->hourly();
+        $schedule->command('env')
+            ->everyMinute()
+            ->environments(['local'])
+            ->runInBackground()
+            ->appendOutputTo('/home/vagrant/code/storage/logs/env.log')
+            ->after(function() { return true; });
     }
+
 
     /**
      * Register the Closure based commands for the application.
      *
      * @return void
      */
-    protected function commands()
+    protected function commands() 
     {
         require base_path('routes/console.php');
     }

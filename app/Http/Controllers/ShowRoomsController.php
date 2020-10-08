@@ -8,8 +8,8 @@ use Illuminate\support\facades\DB;
 
 class ShowRoomsController extends Controller
 {
-    public function showRooms(Request $request , $roomType = null ){
-        $rooms = Room::byType($roomType)->get(); 
+    public function showRooms(Request $request , \App\RoomType $roomType = null ){
+        $rooms = Room::byType($roomType->id)->get(); 
         return view('rooms.index' , ['rooms' => $rooms]);
     }
 }
