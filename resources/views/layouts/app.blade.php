@@ -157,16 +157,16 @@
                   </a>
 
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      @csrf
+                    {{ @csrf_field() }}
                   </form>
               </li>
           @endguest
         @endif
       </ul>
-      <form class="form-inline mt-2 mt-md-0">
+      <!-- <form class="form-inline mt-2 mt-md-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      </form> -->
     </div>
   </nav>
 </header>

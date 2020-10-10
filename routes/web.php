@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/test', function(){ return "goodbye"; });
+
 Route::get('/rooms/{roomType?}' , 'ShowRoomsController@showRooms');
 
 Route::resource('/bookings' , 'BookingController');
